@@ -33,3 +33,17 @@ resource "azurerm_log_analytics_workspace" "main" {
   retention_in_days   = 30
 }
 
+resource "random_string" "keyvault_suffix" {
+  length  = 6
+  special = false
+  upper   = false
+
+}
+
+resource "azurerm_key_vault" "main" {
+  name                = "kv-${var.application_name}-${var.enviroment_name}-${random_string.keyvault_suffix.result}"
+  location            = azurerm_resource_group.main.location
+  resource_group_name = azurerm_resource_group.main.name
+  tenant_id           = data.azurerm_client_config.current.tenant_id
+  sku_name            = "standard"
+}
