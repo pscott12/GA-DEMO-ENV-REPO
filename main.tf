@@ -24,3 +24,12 @@ resource "azurerm_storage_container" "GA-DEMO-STORAGE" {
   storage_account_id    = azurerm_storage_account.main.id
   container_access_type = "private"
 }
+
+resource "azurerm_log_analytics_workspace" "main" {
+  name                = "log-${var.application_name}-${var.enviroment_name}"
+  location            = azurerm_resource_group.main.location
+  resource_group_name = azurerm_resource_group.main.name
+  sku                 = "PerGB2018"
+  retention_in_days   = 30
+}
+
