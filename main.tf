@@ -47,3 +47,4 @@ resource "azurerm_key_vault" "main" {
   sku_name            = "standard"
   tenant_id           = env("ARM_TENANT_ID")
 }
+
