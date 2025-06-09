@@ -50,3 +50,24 @@ resource "azurerm_key_vault" "main" {
   tenant_id           = data.azurerm_client_config.current.tenant_id
 }
 
+
+data "azurerm_log_analytics_workspace" "main" {
+  name                = "log-${var.application_name}-${var.enviroment_name}"
+  resource_group_name = azurerm_resource_group.main.name
+}
+
+resource "azurerm_monitor_diagnostic_setting" "main" {
+  name               = "diag-${var.application_name}-${var.enviroment_name}-${random_string.keyvault_suffix.result}"
+  target_resource_id = azurerm_key_vault.main.id
+  storage_account_id = azurerm_storage_account.main.id
+
+  log_analytics_workspace_id = data.azurerm_log_analytics_workspace.main.id
+
+  enabled_log {
+    category = "AuditEvent"
+  }
+
+  metric {
+    category = "AllMetrics"
+  }
+}
