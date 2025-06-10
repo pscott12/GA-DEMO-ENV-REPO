@@ -64,11 +64,11 @@ resource "azurerm_monitor_diagnostic_setting" "main" {
   log_analytics_workspace_id = data.azurerm_log_analytics_workspace.main.id
 
   enabled_log {
-    category = "AuditEvent"
+    category_group = "audit"
   }
 
   enabled_log {
-    category = "AzurePolicyEvaluationDetails"
+    category_group = "alllogs"
   }
 
   metric {
