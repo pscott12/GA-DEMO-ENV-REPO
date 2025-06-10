@@ -67,6 +67,10 @@ resource "azurerm_monitor_diagnostic_setting" "main" {
     category = "AuditEvent"
   }
 
+  enabled_log {
+    category = "AzurePolicyEvaluationDetails"
+  }
+
   metric {
     category = "AllMetrics"
   }
