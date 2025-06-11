@@ -11,3 +11,15 @@ resource "azurerm_virtual_network" "network" {
   resource_group_name = azurerm_resource_group.network.name
   address_space       = ["10.108.0.0/22"]
 }
+
+resource "azurerm_subnet" "alpha" {
+  name                 = "snet-alpha"
+  resource_group_name  = azurerm_resource_group.network.name
+  virtual_network_name = azurerm_virtual_network.network.name
+  address_prefixes     = ["10.108.1.0/24"]
+
+}
+
+// 10.108.1.0/24
+// 10.108.2.0/24
+// 10.108.3.0/24
