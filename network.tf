@@ -67,5 +67,9 @@ resource "azurerm_network_security_group" "remote_access" {
     destination_address_prefix = "*"
   }
 
+}
 
+resource "azurerm_subnet_network_security_group_association" "alpha_remote_access" {
+  subnet_id                 = azurerm_subnet.alpha.id
+  network_security_group_id = azurerm_network_security_group.remote_access.id
 }
