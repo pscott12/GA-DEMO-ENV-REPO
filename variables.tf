@@ -10,4 +10,7 @@ variable "application_name" {
   description = "The name of the application"
   type        = string
 }
-
+variable "application_name_two" {
+  description = "The name of the second application"
+  type        = string
+}
