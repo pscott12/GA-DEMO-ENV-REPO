@@ -41,7 +41,7 @@ resource "azurerm_linux_virtual_machine" "vm1" {
   ]
 
   admin_ssh_key {
-    username   = "admin"
+    username   = "pscott"
     public_key = tls_private_key.vm1.public_key_openssh
   }
 
