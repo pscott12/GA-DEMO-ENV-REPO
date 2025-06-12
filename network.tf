@@ -82,7 +82,7 @@ data "http" "my_ip" {
 
 resource "azurerm_public_ip" "bastion" {
   name                = "pip-${var.application_name_two}-${var.enviroment_name}-bastion"
-  location            = azurerm_resource_group.netowrk.location
+  location            = azurerm_resource_group.network.location
   resource_group_name = azurerm_resource_group.network.name
   allocation_method   = "Static"
   sku                 = "Standard"
