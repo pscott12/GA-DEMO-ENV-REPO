@@ -13,10 +13,23 @@ resource "azurerm_virtual_network" "network" {
 }
 
 locals {
-  alpha_address_space   = cidrsubnet(var.base_address_space, 2, 0)
+  bastion_address_space = cidrsubnet(var.base_address_space, 4, 0)
   bravo_address_space   = cidrsubnet(var.base_address_space, 2, 1)
   charlie_address_space = cidrsubnet(var.base_address_space, 2, 2)
   delta_address_space   = cidrsubnet(var.base_address_space, 2, 3)
+}
+
+//10.40.0.0/26
+// Start at 10.40.0.0
+// End at 10.40.0.63
+
+
+resource "azurerm_subnet" "bastion" {
+  name = "AzureBastionSubnet"
+  # Azure Bastion requires a specific name
+  resource_group_name  = azurerm_resource_group.network.name
+  virtual_network_name = azurerm_virtual_network.network.name
+  address_prefixes     = [local.bastion_address_space]
 }
 
 // 10.108.1.0/24
