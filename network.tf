@@ -19,13 +19,6 @@ locals {
   delta_address_space   = cidrsubnet(var.base_address_space, 2, 3)
 }
 
-resource "azurerm_subnet" "alpha" {
-  name                 = "snet-alpha"
-  resource_group_name  = azurerm_resource_group.network.name
-  virtual_network_name = azurerm_virtual_network.network.name
-  address_prefixes     = [local.alpha_address_space]
-}
-
 // 10.108.1.0/24
 resource "azurerm_subnet" "bravo" {
   name                 = "snet-bravo"
@@ -69,10 +62,6 @@ resource "azurerm_network_security_group" "remote_access" {
 
 }
 
-resource "azurerm_subnet_network_security_group_association" "alpha_remote_access" {
-  subnet_id                 = azurerm_subnet.alpha.id
-  network_security_group_id = azurerm_network_security_group.remote_access.id
-}
 
 data "http" "my_ip" {
   url = "http://ipinfo.io/ip"
