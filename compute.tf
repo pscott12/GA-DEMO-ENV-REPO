@@ -35,7 +35,7 @@ resource "azurerm_linux_virtual_machine" "vm1" {
   resource_group_name = azurerm_resource_group.linuxvm.name
   location            = azurerm_resource_group.linuxvm.location
   size                = "Standard_D2_v2_Promo"
-  admin_username      = "admin"
+  admin_username      = "pscott"
   network_interface_ids = [
     azurerm_network_interface.vm1.id,
   ]
