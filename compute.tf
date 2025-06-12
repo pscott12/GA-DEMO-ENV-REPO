@@ -10,3 +10,16 @@ resource "azurerm_public_ip" "vm1" {
   location            = azurerm_resource_group.linuxvm.location
   allocation_method   = "Static"
 }
+
+resource "azurerm_network_interface" "vm1" {
+  name                = "nic-${var.application_name_three}-${var.enviroment_name}-vm1"
+  location            = azurerm_resource_group.linuxvm.location
+  resource_group_name = azurerm_resource_group.linuxvm.name
+
+  ip_configuration {
+    name                          = "public"
+    subnet_id                     = azurerm_subnet.alpha.id
+    private_ip_address_allocation = "Dynamic"
+    public_ip_address_id          = azurerm_public_ip.vm1.id
+  }
+}
